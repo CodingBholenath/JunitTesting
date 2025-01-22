@@ -9,7 +9,7 @@ public class OrderConstants {
     public final static String URL = "/api/order";
     public final static String ORDER_NUMBER = "ORDER123";
     public final static long ORDER_ID = 100L;
-    public final static BigDecimal PRICE= BigDecimal.valueOf(10);
+    public final static BigDecimal PRICE = BigDecimal.valueOf(10);
     public final static String SKU_CODE = "SKU123";
     public final static Integer QUANTITY = 10;
     public final static Long ID = 123L;
@@ -18,7 +18,4 @@ public class OrderConstants {
     public static final String FIRST_NAME = "John";
     public static final String LAST_NAME = "Doe";
 
-//public static final OrderRequest.UserDetails USER_DETAILS = new OrderRequest.UserDetails(EMAIL, FIRST_NAME, LAST_NAME);
-
-//public static final OrderRequest ORDER_REQUEST = new OrderRequest(ORDER_ID, ORDER_NUMBER, SKU_CODE, PRICE, QUANTITY, USER_DETAILS);
 }

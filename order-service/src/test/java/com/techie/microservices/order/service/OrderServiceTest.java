@@ -38,25 +38,13 @@ class OrderServiceTest {
         when(userDetails.email()).thenReturn(OrderConstants.EMAIL);
         when(userDetails.firstName()).thenReturn(OrderConstants.FIRST_NAME);
         when(userDetails.lastName()).thenReturn(OrderConstants.LAST_NAME);
-//when(orderRequest.orderNumber()).thenReturn(OrderConstants.ORDER_NUMBER);
         when(orderRequest.skuCode()).thenReturn(OrderConstants.SKU_CODE);
         when(orderRequest.quantity()).thenReturn(OrderConstants.QUANTITY);
         when(orderRequest.price()).thenReturn(OrderConstants.PRICE);
         when(orderRequest.userDetails()).thenReturn(userDetails);
     }
 
-    //void setUp(){
-// orderRequest=mock(OrderRequest.class);
-//        OrderRequest.UserDetails userDetails=mock(OrderRequest.UserDetails.class);
-//        when(userDetails.email()).thenReturn(OrderConstants.EMAIL);
-//        when(userDetails.firstName()).thenReturn(OrderConstants.FIRST_NAME);
-//        when(userDetails.lastName()).thenReturn(OrderConstants.LAST_NAME);
-////when(orderRequest.orderNumber()).thenReturn(OrderConstants.ORDER_NUMBER);
-//        when(orderRequest.skuCode()).thenReturn(OrderConstants.SKU_CODE);
-//        when(orderRequest.quantity()).thenReturn(OrderConstants.QUANTITY);
-//        when(orderRequest.price()).thenReturn(OrderConstants.PRICE);
-//        when(orderRequest.userDetails()).thenReturn(userDetails);
-//}
+
     @Test
     void placeOrder_WhenProductIsInStock() {
 

@@ -35,41 +35,42 @@ class OrderControllerTest {
     @InjectMocks
     private OrderController orderController;
 
-            @BeforeEach
-        void setUp(){
+    @BeforeEach
+    void setUp() {
 
-            mockMvc = MockMvcBuilders.standaloneSetup(new OrderController(orderService)).build();
-   }
+        mockMvc = MockMvcBuilders.standaloneSetup(new OrderController(orderService)).build();
+    }
+
     @Test
     void test_PlaceOrder() throws Exception {
         OrderRequest.UserDetails userDetails = new OrderRequest.UserDetails(OrderConstants.EMAIL, OrderConstants.FIRST_NAME, OrderConstants.LAST_NAME);
         OrderRequest orderRequest = new OrderRequest(OrderConstants.ORDER_ID, OrderConstants.ORDER_NUMBER, OrderConstants.SKU_CODE, OrderConstants.PRICE, OrderConstants.QUANTITY, userDetails);
-doNothing().when(orderService).placeOrder(orderRequest);
-mockMvc.perform(MockMvcRequestBuilders.post(OrderConstants.URL)
-                .contentType("application/json")
-                .content("{\n" +
-                        "  \"id\": 100,\n" +
-                        "  \"orderNumber\": \"ORDER123\",\n" +
-                        "  \"skuCode\": \"SKU123\",\n" +
-                        "  \"price\": 10,\n" +
-                        "  \"quantity\": 10,\n" +
-                        "  \"userDetails\": {\n" +
-                        "    \"email\": \"email\",\n" +
-                        "    \"firstName\": \"John\",\n" +
-                        "    \"lastName\": \"Doe\"\n" +
-                        "  }\n" +
-                        "}")).andExpect(MockMvcResultMatchers.status().isCreated())
-        .andExpect(MockMvcResultMatchers.content().string("Order Placed Successfully"));
+        doNothing().when(orderService).placeOrder(orderRequest);
+        mockMvc.perform(MockMvcRequestBuilders.post(OrderConstants.URL)
+                        .contentType("application/json")
+                        .content("{\n" +
+                                "  \"id\": 100,\n" +
+                                "  \"orderNumber\": \"ORDER123\",\n" +
+                                "  \"skuCode\": \"SKU123\",\n" +
+                                "  \"price\": 10,\n" +
+                                "  \"quantity\": 10,\n" +
+                                "  \"userDetails\": {\n" +
+                                "    \"email\": \"email\",\n" +
+                                "    \"firstName\": \"John\",\n" +
+                                "    \"lastName\": \"Doe\"\n" +
+                                "  }\n" +
+                                "}")).andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().string("Order Placed Successfully"));
     }
 
     @Test
     void fallbackMethod() {
         OrderRequest.UserDetails userDetails = new OrderRequest.UserDetails(OrderConstants.EMAIL, OrderConstants.FIRST_NAME, OrderConstants.LAST_NAME);
         OrderRequest orderRequest = new OrderRequest(OrderConstants.ORDER_ID, OrderConstants.ORDER_NUMBER, OrderConstants.SKU_CODE, OrderConstants.PRICE, OrderConstants.QUANTITY, userDetails);
-        RuntimeException runtimeException=new RuntimeException("Oops! Something went wrong ,Please order after some time");
+        RuntimeException runtimeException = new RuntimeException("Oops! Something went wrong ,Please order after some time");
 
 
-        CompletableFuture<String> result = orderController.fallbackMethod(orderRequest,runtimeException);
+        CompletableFuture<String> result = orderController.fallbackMethod(orderRequest, runtimeException);
 
         result.thenAccept(result1 -> assertEquals("Oops! Something went wrong, please order after some time!", result1));
     }
