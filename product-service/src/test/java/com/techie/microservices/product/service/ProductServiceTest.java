@@ -24,27 +24,28 @@ import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
-@InjectMocks
-private  ProductService productService;
-@Mock
-private ProductRepository productRepository;
-@Autowired
-private MockMvc mockMvc;
+    @InjectMocks
+    private ProductService productService;
+    @Mock
+    private ProductRepository productRepository;
+    @Autowired
+    private MockMvc mockMvc;
 
-private ProductRequest productRequest;
-private Product product;
-@BeforeEach
+    private ProductRequest productRequest;
+    private Product product;
 
-void setUp(){
+    @BeforeEach
+    void setUp() {
 
-    productRequest= new ProductRequest(ProductConstants.ID, ProductConstants.NAME, ProductConstants.DESCRIPTION, ProductConstants.SKU_CODE, ProductConstants.PRICE);
-}
+        productRequest = new ProductRequest(ProductConstants.ID, ProductConstants.NAME, ProductConstants.DESCRIPTION, ProductConstants.SKU_CODE, ProductConstants.PRICE);
+    }
+
     @Test
-   public  void test_To_createProduct_Successfully() {
-    product=new Product(ProductConstants.ID, ProductConstants.NAME, ProductConstants.DESCRIPTION, ProductConstants.SKU_CODE, ProductConstants.PRICE);
-    Mockito.when(productRepository.save(any(Product.class))).thenReturn(product);
+    public void test_To_createProduct_Successfully() {
+        product = new Product(ProductConstants.ID, ProductConstants.NAME, ProductConstants.DESCRIPTION, ProductConstants.SKU_CODE, ProductConstants.PRICE);
+        Mockito.when(productRepository.save(any(Product.class))).thenReturn(product);
 
- ProductResponse productResponse=productService.createProduct(productRequest);
+        ProductResponse productResponse = productService.createProduct(productRequest);
 
 //        assertEquals(ProductConstants.ID, productResponse.id());
         assertEquals(ProductConstants.NAME, productResponse.name());
@@ -53,20 +54,20 @@ void setUp(){
         assertEquals(ProductConstants.PRICE, productResponse.price());
     }
 
-@Test
-public void testCreateProductWhen(){
-    Mockito.when(productRepository.save(any(Product.class))).thenThrow(new RuntimeException("Not saved"));
-    assertThrows(RuntimeException.class,()->productService.createProduct(productRequest));
-}
+    @Test
+    public void testCreateProductWhen() {
+        Mockito.when(productRepository.save(any(Product.class))).thenThrow(new RuntimeException("Not saved"));
+        assertThrows(RuntimeException.class, () -> productService.createProduct(productRequest));
+    }
 
     @Test
     void getAllProducts() {
-    product =new Product(ProductConstants.ID, ProductConstants.NAME, ProductConstants.DESCRIPTION, ProductConstants.SKU_CODE, ProductConstants.PRICE);
-   Mockito.when(productRepository.findAll()).thenReturn(List.of(product));
+        product = new Product(ProductConstants.ID, ProductConstants.NAME, ProductConstants.DESCRIPTION, ProductConstants.SKU_CODE, ProductConstants.PRICE);
+        Mockito.when(productRepository.findAll()).thenReturn(List.of(product));
 
-    List<ProductResponse> productResponses=productService.getAllProducts();
+        List<ProductResponse> productResponses = productService.getAllProducts();
 
-    assertEquals(1, productResponses.size());
-    assertEquals(ProductConstants.ID, productResponses.get(0).id());
+        assertEquals(1, productResponses.size());
+        assertEquals(ProductConstants.ID, productResponses.get(0).id());
     }
 }
